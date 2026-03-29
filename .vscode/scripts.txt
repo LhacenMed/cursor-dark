@@ -1,0 +1,4 @@
+run:
+vsce package
+
+to regenrate the vsix file.
