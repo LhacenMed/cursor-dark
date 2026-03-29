@@ -3,8 +3,9 @@
   "displayName": "Cursor Dark",
   "description": "Cursor Dark theme ported from Cursor IDE for VSCode.",
   "version": "0.0.1",
+  "publisher": "Lhacen Med",
   "engines": {
-    "vscode": "^1.110.0"
+    "vscode": ">=1.0.0"
   },
   "categories": [
     "Themes"
