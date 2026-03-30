@@ -21,6 +21,21 @@
         "label": "Cursor Dark",
         "uiTheme": "vs-dark",
         "path": "./themes/cursor-dark.json"
+      },
+      {
+        "label": "Cursor Dark Midnight",
+        "uiTheme": "vs-dark",
+        "path": "./themes/cursor-dark-midnight.json"
+      },
+      {
+        "label": "Cursor Dark Midnight High Contrast",
+        "uiTheme": "hc-black",
+        "path": "./themes/cursor-dark-midnight-high-contrast.json"
+      },
+      {
+        "label": "Cursor Light",
+        "uiTheme": "vs",
+        "path": "./themes/cursor-light.json"
       }
     ]
   },
