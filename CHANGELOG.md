@@ -1,9 +1,7 @@
-# Change Log
+# Changelog
 
-All notable changes to the "cursor-dark" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+## [0.0.4] - 2025-xx-xx
+### Added
+- Cursor Dark Midnight theme
+- Cursor Dark Midnight High Contrast theme
+- Cursor Light theme
