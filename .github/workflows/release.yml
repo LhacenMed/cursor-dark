@@ -12,29 +12,44 @@ permissions:
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
       - uses: googleapis/release-please-action@v4
         id: release
         with:
           release-type: node
 
-      # Only runs when a release PR is merged
+  publish:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created }}
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v4
-        if: ${{ steps.release.outputs.release_created }}
 
       - uses: actions/setup-node@v4
-        if: ${{ steps.release.outputs.release_created }}
         with:
           node-version: 20
 
-      - name: Package VSIX
-        if: ${{ steps.release.outputs.release_created }}
+      - name: Install packaging tools
         run: |
-          npm install -g @vscode/vsce
-          vsce package
+          npm install -g @vscode/vsce ovsx
+
+      - name: Package VSIX
+        run: vsce package
 
       - name: Upload VSIX to GitHub Release
-        if: ${{ steps.release.outputs.release_created }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload ${{ steps.release.outputs.tag_name }} *.vsix
+        run: gh release upload ${{ needs.release-please.outputs.tag_name }} *.vsix
+
+      - name: Publish to VS Code Marketplace
+        env:
+          VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
+        run: vsce publish -p $VSCE_TOKEN
+
+      - name: Publish to Open VSX
+        env:
+          OVSX_TOKEN: ${{ secrets.OVSX_TOKEN }}
+        run: ovsx publish *.vsix -p $OVSX_TOKEN
